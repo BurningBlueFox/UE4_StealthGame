@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+
 #include "FPSCharacter.generated.h"
 
 class UInputComponent;
@@ -47,6 +48,9 @@ public:
 	/** AnimMontage to play each time we fire */
 	UPROPERTY(EditDefaultsOnly, Category = "Gameplay")
 	UAnimSequence* FireAnimation;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
+	bool bIsCarryingObjective;
 
 protected:
 	

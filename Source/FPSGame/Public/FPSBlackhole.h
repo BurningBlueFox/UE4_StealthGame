@@ -5,37 +5,35 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/SphereComponent.h"
-#include "Kismet/GameplayStatics.h"
-#include "FPSCharacter.h"
 
-#include "FPSObjectiveActor.generated.h"
+#include "FPSBlackhole.generated.h"
 
 UCLASS()
-class FPSGAME_API AFPSObjectiveActor : public AActor
+class FPSGAME_API AFPSBlackhole : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AFPSObjectiveActor();
+	AFPSBlackhole();
 
 protected:
-	// Called when the game starts or when spawned
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UStaticMeshComponent* MeshComp;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	USphereComponent* SphereComp;
+	USphereComponent* InnerSphereComp;
 
-	UPROPERTY(EditDefaultsOnly, Category = "FX")
-	UParticleSystem* PickupFX;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	USphereComponent* OutterSphereComp;
 
-	virtual void BeginPlay() override;
-	void PlayEffects();
+	UFUNCTION()
+	void OverlappingInnerSphere(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+								UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
+								bool bFromSweep, const FHitResult& SweepResult);
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 };

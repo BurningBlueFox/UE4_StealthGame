@@ -30,7 +30,15 @@ void AFPSObjectiveActor::BeginPlay()
 void AFPSObjectiveActor::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
-	PlayEffects();
+
+	AFPSCharacter* character = Cast<AFPSCharacter>(OtherActor);
+	if (character)
+	{
+		character->bIsCarryingObjective = true;
+		
+		PlayEffects();
+		Destroy();
+	}
 }
 
 void AFPSObjectiveActor::PlayEffects()
